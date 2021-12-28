@@ -4,11 +4,8 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import { Card } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
 
-// function showMushroomInfo(props) {
-  
-// }
+import MushroomInfo from './mushroomInfo';
 
 const Record = (props) => (
   <Card style={{ width: '18rem' }}>
@@ -19,7 +16,7 @@ const Record = (props) => (
         Some quick example text to build on the card title and make up the bulk of
         the card's content.
       </Card.Text>
-      <Button variant="primary" onClick={ () => showMushroomInfo(props)}>Learn more</Button>
+      <MushroomInfo />
     </Card.Body>
   </Card>
 );
@@ -80,6 +77,14 @@ export default class RecordList extends Component {
   }
 }
 
-function showMushroomInfo(props) {
-  return console.log(props.record.binomial);
-}
+// function ShowMushroomInfo(props) {
+//   const showAlert = usePopup();
+
+//   showAlert({
+//     title: "Error",
+//     type: DialogType.WARNING,
+//     text: "A simple error alert"
+// });
+
+  
+// }
