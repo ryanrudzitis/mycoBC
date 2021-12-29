@@ -4,19 +4,24 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import { Card } from 'react-bootstrap';
-
 import MushroomInfo from './mushroomInfo';
+import { Button } from 'react-bootstrap'
+// import img from "./../img/the_prince.jpg";
+
+const path = "./../../img/";
+
 
 const Record = (props) => (
   <Card style={{ width: '18rem' }}>
-    <Card.Img variant="top" src="holder.js/100px180" />
+    <Card.Img variant="top" src={props.record.img} />
     <Card.Body>
       <Card.Title>{props.record.name}</Card.Title>
-      <Card.Text>
+      {/* <Card.Text>
         Some quick example text to build on the card title and make up the bulk of
         the card's content.
-      </Card.Text>
-      <MushroomInfo />
+      </Card.Text> */}
+      <MushroomInfo {... props}/>
+      {/* <Button variant="primary" onClick={() => console.log("hello")}>Learn more</Button> */}
     </Card.Body>
   </Card>
 );
@@ -25,7 +30,7 @@ export default class RecordList extends Component {
   // This is the constructor that shall store our data retrieved from the database
   constructor(props) {
     super(props);
-    this.deleteRecord = this.deleteRecord.bind(this);
+    // this.deleteRecord = this.deleteRecord.bind(this);
     this.state = { records: [] };
   }
 
@@ -43,15 +48,15 @@ export default class RecordList extends Component {
   }
 
   // This method will delete a record based on the method
-  deleteRecord(id) {
-    axios.delete("http://localhost:5000/" + id).then((response) => {
-      console.log(response.data);
-    });
+  // deleteRecord(id) {
+  //   axios.delete("http://localhost:5000/" + id).then((response) => {
+  //     console.log(response.data);
+  //   });
 
-    this.setState({
-      record: this.state.records.filter((el) => el._id !== id),
-    });
-  }
+  //   this.setState({
+  //     record: this.state.records.filter((el) => el._id !== id),
+  //   });
+  // }
 
   // This method will map out the users on the table
   recordList() {
