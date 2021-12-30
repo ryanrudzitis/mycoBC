@@ -1,19 +1,14 @@
 import React, { Component } from "react";
-// This will require to npm install axios
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.css";
 import { Card } from 'react-bootstrap';
 import MushroomInfo from './mushroomInfo';
-// import img from "./../img/the_prince.jpg";
-
-const path = "./../../img/";
 
 const myStyle = {
   padding: 2,
   margin: '0 auto',
   width: '18rem'
 };
-
 
 const Record = (props) => (
   <Card style={myStyle} className ='mb-2 text-center'>
@@ -30,9 +25,11 @@ export default class RecordList extends Component {
   // This is the constructor that shall store our data retrieved from the database
   constructor(props) {
     super(props);
-    // this.deleteRecord = this.deleteRecord.bind(this);
+
     this.state = { 
-      records: [] 
+      records: [],
+      filterEdible: false,
+      filterPoisonous: false
       //filter: props.filter? get option from dropdown that calls recordlist
     };
   }
@@ -53,13 +50,12 @@ export default class RecordList extends Component {
   // This method will map out the users on the table
   recordList() {
     return this.state.records.map((currentrecord) => {
-      console.log("here " + currentrecord.availability);
+      // console.log("here " + currentrecord.availability);
       if (!currentrecord.availability.includes("March")) {
 
         return (
           <Record
             record={currentrecord}
-            // deleteRecord={this.deleteRecord}
             key={currentrecord._id}
           />
         );
