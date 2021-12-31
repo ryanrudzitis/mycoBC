@@ -11,11 +11,12 @@ const myStyle = {
 };
 
 const Record = (props) => (
-  <Card style={myStyle} className ='mb-2 text-center'>
+
+  <Card style={myStyle} className='mb-2 text-center'>
     <Card.Img variant="top" src={props.record.img} />
     <Card.Body>
       <Card.Title>{props.record.name}</Card.Title>
-      <MushroomInfo {... props}/>
+      <MushroomInfo {...props} />
       {/* <Button variant="primary" onClick={() => console.log("hello")}>Learn more</Button> */}
     </Card.Body>
   </Card>
@@ -26,11 +27,8 @@ export default class RecordList extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { 
-      records: [],
-      filterEdible: false,
-      filterPoisonous: false
-      //filter: props.filter? get option from dropdown that calls recordlist
+    this.state = {
+      records: []
     };
   }
 
@@ -40,8 +38,8 @@ export default class RecordList extends Component {
       .get("http://localhost:5000/record/")
       .then((response) => {
         this.setState(
-          { 
-            records: response.data 
+          {
+            records: response.data
           });
         // console.log(response.data);
       })
@@ -50,13 +48,41 @@ export default class RecordList extends Component {
       });
   }
 
+  filterStatus() {
+    if(this.props.filterBy != "none") {
+      console.log("filtering!");
+      return (
+        <div>
+          <p>Filtering by: {this.props.filterBy}</p>
+        </div>
+      );
+    } else {
+      console.log("forbidden");
+    }
+  }
+
   // This method will map out the users on the table
   recordList() {
     return this.state.records.map((currentrecord) => {
-      // console.log("here " + currentrecord.availability);
-      console.log("hello")
-      if (!currentrecord.availability.includes("March")) {
-
+      if(this.props.filterBy === "edible") {
+        if (currentrecord.edible.includes("Yes")) {
+          return (
+            <Record
+              record={currentrecord}
+              key={currentrecord._id}
+            />
+          );
+        }
+      } else if (this.props.filterBy === "poisonous") {
+        if (currentrecord.poisonous.includes("Yes")) {
+          return (
+            <Record
+              record={currentrecord}
+              key={currentrecord._id}
+            />
+          );
+        }
+      } else {
         return (
           <Record
             record={currentrecord}
@@ -70,10 +96,10 @@ export default class RecordList extends Component {
   // This following section will display a card for each database record
   render() {
     return (
-      <div className ='mb-3'>
+      <div className='mb-3 text-center'>
+        {this.filterStatus()}
         {this.recordList()}
       </div>
-
     );
   }
 }
