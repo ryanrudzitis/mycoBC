@@ -26,7 +26,7 @@ function MushroomInfo(props) {
         top: '100px',
         right: '100px'
       }}>
-        <Modal.Dialog>
+        {/* <Modal.Dialog>
           <Modal.Header closeButton>
             <Modal.Title>Modal title</Modal.Title>
           </Modal.Header>
@@ -39,7 +39,7 @@ function MushroomInfo(props) {
             <Button variant="secondary">Close</Button>
             <Button variant="primary">Save changes</Button>
           </Modal.Footer>
-        </Modal.Dialog>
+        </Modal.Dialog> */}
       </div>
     </>
   );

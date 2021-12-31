@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.css";
-import { Card } from 'react-bootstrap';
+import { Card, Modal, Button} from 'react-bootstrap';
 import MushroomInfo from './mushroomInfo';
 
 const myStyle = {
@@ -48,7 +48,7 @@ export default class RecordList extends Component {
   }
 
   filterStatus() {
-    if(this.props.filterBy != "none") {
+    if (this.props.filterBy != "none") {
       console.log("filtering!");
       return (
         <div style={{
@@ -63,7 +63,7 @@ export default class RecordList extends Component {
   // This method will map out the users on the table
   recordList() {
     return this.state.records.map((currentrecord) => {
-      if(this.props.filterBy === "edible") {
+      if (this.props.filterBy === "edible") {
         if (currentrecord.edible.includes("Yes")) {
           return (
             <Record
@@ -92,10 +92,23 @@ export default class RecordList extends Component {
     });
   }
 
-  // This following section will display a card for each database record
   render() {
     return (
       <div className='mb-3 text-center'>
+        <Modal.Dialog>
+          <Modal.Header closeButton>
+            <Modal.Title>Modal title</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body>
+            <p>Modal body text goes here.</p>
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Button variant="secondary">Close</Button>
+            <Button variant="primary">Save changes</Button>
+          </Modal.Footer>
+        </Modal.Dialog>
         {this.filterStatus()}
         {this.recordList()}
       </div>
