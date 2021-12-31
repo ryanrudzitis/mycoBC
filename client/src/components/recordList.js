@@ -51,6 +51,7 @@ export default class RecordList extends Component {
   recordList() {
     return this.state.records.map((currentrecord) => {
       // console.log("here " + currentrecord.availability);
+      console.log("hello")
       if (!currentrecord.availability.includes("March")) {
 
         return (

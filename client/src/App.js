@@ -1,5 +1,6 @@
 import React from "react";
 import { Navbar, NavDropdown, Container } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 
 
 // We use Route in order to define the different routes of our application
@@ -14,7 +15,7 @@ const App = () => {
   // somehow pass onclicks to record list? through to record?
 
   function edible() {
-    console.log("filter by edible");
+    return <Link to="/invoices">Invoices</Link>
   }
 
   function poisonous() {
@@ -39,12 +40,13 @@ const App = () => {
             mycoBC
           </Navbar.Brand>
           <NavDropdown title="Filter" id="basic-nav-dropdown">
-            <NavDropdown.Item onClick={edible}>Edible</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to={"/recordList"}>Edible</NavDropdown.Item>
+            
             <NavDropdown.Item onClick={poisonous}>Poisonous</NavDropdown.Item>
           </NavDropdown>
         </Container>
       </Navbar>
-
+      {/* inform user of filter status here, conditional rendering of an element */}
       <RecordList/> {/*open recordList with filter option in props*/}
     </div>
   );
