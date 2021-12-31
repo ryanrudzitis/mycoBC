@@ -12,23 +12,10 @@ import RecordList from "./components/recordList";
 export default function App() {
 
   const [filter, setFilter] = useState("none");
-  //filter logic here? maybe as a state? using button result from dropdown
-  // somehow pass onclicks to record list? through to record?
 
-
-
-  //use filter state here!
-  function edible() {
-    if(filter != "edible") {
-      setFilter("edible");
-    } else {
-      setFilter("none");
-    }
-  }
-
-  function poisonous() {
-    if(filter != "poisonous") {
-      setFilter("poisonous");
+  function toggleFilter(filterBy) {
+    if(filter != filterBy) {
+      setFilter(filterBy);
     } else {
       setFilter("none");
     }
@@ -50,9 +37,9 @@ export default function App() {
             mycoBC
           </Navbar.Brand>
           <NavDropdown title="Filter" id="basic-nav-dropdown">
-            <NavDropdown.Item onClick={edible}>Edible</NavDropdown.Item>
+            <NavDropdown.Item onClick={() => toggleFilter("edible")}>Edible</NavDropdown.Item>
 
-            <NavDropdown.Item onClick={poisonous}>Poisonous</NavDropdown.Item>
+            <NavDropdown.Item onClick={() => toggleFilter("poisonous")}>Poisonous</NavDropdown.Item>
           </NavDropdown>
         </Container>
       </Navbar>
