@@ -1,16 +1,11 @@
 import React, { useState } from "react";
 import { Navbar, NavDropdown, Container } from 'react-bootstrap';
-import { Link } from "react-router-dom";
-
-
-// We use Route in order to define the different routes of our application
-import { Route } from "react-router-dom";
 
 // We import all the components we need in our app
 import RecordList from "./components/recordList";
 
 export default function App() {
-
+  // used to track if filtering should be active
   const [filter, setFilter] = useState("none");
 
   function toggleFilter(filterBy) {
@@ -21,10 +16,8 @@ export default function App() {
     }
   }
 
-  return (
-
-    <div style={{ backgroundColor: "rgb(252, 68, 68)" }}>
-      <Navbar bg="dark" variant="dark" className='mb-2'>
+  const Nav = (props) => (
+    <Navbar bg="dark" variant="dark" className='mb-2'>
         <Container>
           <Navbar.Brand href="#home">
             <img
@@ -36,18 +29,19 @@ export default function App() {
             />{'     '}
             mycoBC
           </Navbar.Brand>
-          <NavDropdown title="Filter" id="basic-nav-dropdown">
+          <NavDropdown title="Filter" id="basic-nav-dropdown" menuVariant="dark">
             <NavDropdown.Item onClick={() => toggleFilter("edible")}>Edible</NavDropdown.Item>
-
             <NavDropdown.Item onClick={() => toggleFilter("poisonous")}>Poisonous</NavDropdown.Item>
+            <NavDropdown.Item>Month</NavDropdown.Item>
           </NavDropdown>
         </Container>
       </Navbar>
-      {/* inform user of filter status here, conditional rendering of an element */}
+  );
+  
+  return (
+    <div style={{ backgroundColor: "rgb(252, 68, 68)" }}>
+      <Nav/>
       <RecordList filterBy={filter}/>
-      {/*open recordList with filter option in props*/}
     </div>
   );
 };
-
-// export default App;

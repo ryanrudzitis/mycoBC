@@ -1,8 +1,7 @@
 import React, { Component } from "react";
+import { Card, Modal, Button } from 'react-bootstrap';
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.css";
-import { Card, Modal, Button } from 'react-bootstrap';
-import MushroomInfo from './mushroomInfo';
 
 const myStyle = {
   padding: 2,
@@ -10,20 +9,17 @@ const myStyle = {
   width: '18rem'
 };
 
-const Record = (props) => (
-
+const MushroomCard = (props) => (
   <Card style={myStyle} className='mb-2 text-center'>
     <Card.Img variant="top" src={props.record.img} />
     <Card.Body>
       <Card.Title>{props.record.name}</Card.Title>
-      {/* <MushroomInfo {...props} /> */}
       <Button variant="primary" onClick={props.onClick}>Learn more</Button>
     </Card.Body>
   </Card>
 );
 
 export default class RecordList extends Component {
-  // This is the constructor that shall store our data retrieved from the database
   constructor(props) {
     super(props);
 
@@ -46,12 +42,13 @@ export default class RecordList extends Component {
   }
 
   handleShow(currentRecord) {
-    let mushroomInfo = (<><p>{"Binomial: " + currentRecord.binomial}</p>
-    <p>{"Edible: " + currentRecord.edible}</p>
-    <p>{"Poisonous: " + currentRecord.poisonous}</p>
-    <p>{"Availability: " + currentRecord.availability}</p></>)
+    let mushroomInfo = (<>
+      <p>{"Binomial: " + currentRecord.binomial}</p>
+      <p>{"Edible: " + currentRecord.edible}</p>
+      <p>{"Poisonous: " + currentRecord.poisonous}</p>
+      <p>{"Availability: " + currentRecord.availability}</p>
+    </>)
 
-    console.log(mushroomInfo);
     this.setState(
       {
         show: true,
@@ -61,7 +58,7 @@ export default class RecordList extends Component {
 
   }
 
-  // This method will get the data from the database.
+  // This method will get the data from the database and store it in state
   componentDidMount() {
     axios
       .get("http://localhost:5000/record/")
@@ -76,9 +73,22 @@ export default class RecordList extends Component {
       });
   }
 
+  mushroomModal = (props) => (
+    <Modal show={this.state.show} onHide={this.handleClose} size='sm'>
+      <Modal.Header closeButton>
+        <Modal.Title>{this.state.modalTitle}</Modal.Title>
+      </Modal.Header>
+
+      <Modal.Body>
+        {this.state.modalBody}
+        <Button variant="secondary" onClick={this.handleClose} >Close</Button>
+      </Modal.Body>
+
+    </Modal>
+  );
+
   filterStatus() {
     if (this.props.filterBy != "none") {
-      console.log("filtering!");
       return (
         <div style={{
           fontSize: "25px"
@@ -89,13 +99,13 @@ export default class RecordList extends Component {
     }
   }
 
-  // This method will map out the users on the table
+  // pass filter function into props! maybe
   recordList() {
     return this.state.records.map((currentrecord) => {
       if (this.props.filterBy === "edible") {
         if (currentrecord.edible.includes("Yes")) {
           return (
-            <Record
+            <MushroomCard
               record={currentrecord}
               onClick={() => this.handleShow(currentrecord)}
               key={currentrecord._id}
@@ -105,7 +115,7 @@ export default class RecordList extends Component {
       } else if (this.props.filterBy === "poisonous") {
         if (currentrecord.poisonous.includes("Yes")) {
           return (
-            <Record
+            <MushroomCard
               record={currentrecord}
               onClick={() => this.handleShow(currentrecord)}
               key={currentrecord._id}
@@ -114,7 +124,7 @@ export default class RecordList extends Component {
         }
       } else {
         return (
-          <Record
+          <MushroomCard
             record={currentrecord}
             onClick={() => this.handleShow(currentrecord)}
             key={currentrecord._id}
@@ -127,19 +137,7 @@ export default class RecordList extends Component {
   render() {
     return (
       <div className='mb-3 text-center'>
-        <Modal show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>{this.state.modalTitle}</Modal.Title>
-          </Modal.Header>
-
-          <Modal.Body>
-            {this.state.modalBody}
-          </Modal.Body>
-
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose} >Close</Button>
-          </Modal.Footer>
-        </Modal>
+        {this.mushroomModal()}
         {this.filterStatus()}
         {this.recordList()}
       </div>
