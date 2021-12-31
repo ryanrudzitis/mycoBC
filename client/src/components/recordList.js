@@ -41,7 +41,6 @@ export default class RecordList extends Component {
           {
             records: response.data
           });
-        // console.log(response.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -52,12 +51,12 @@ export default class RecordList extends Component {
     if(this.props.filterBy != "none") {
       console.log("filtering!");
       return (
-        <div>
+        <div style={{
+          fontSize: "25px"
+        }}>
           <p>Filtering by: {this.props.filterBy}</p>
         </div>
       );
-    } else {
-      console.log("forbidden");
     }
   }
 
