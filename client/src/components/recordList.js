@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.css";
-import { Card, Modal, Button} from 'react-bootstrap';
+import { Card, Modal, Button } from 'react-bootstrap';
 import MushroomInfo from './mushroomInfo';
 
 const myStyle = {
@@ -16,8 +16,8 @@ const Record = (props) => (
     <Card.Img variant="top" src={props.record.img} />
     <Card.Body>
       <Card.Title>{props.record.name}</Card.Title>
-      <MushroomInfo {...props} />
-      {/* <Button variant="primary" onClick={() => console.log("hello")}>Learn more</Button> */}
+      {/* <MushroomInfo {...props} /> */}
+      <Button variant="primary" onClick={props.onClick}>Learn more</Button>
     </Card.Body>
   </Card>
 );
@@ -28,8 +28,37 @@ export default class RecordList extends Component {
     super(props);
 
     this.state = {
-      records: []
+      records: [],
+      show: false,
+      modalTitle: "",
+      modalBody: null
     };
+
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  handleClose() {
+    this.setState(
+      {
+        show: false
+      });
+  }
+
+  handleShow(currentRecord) {
+    let mushroomInfo = (<><p>{"Binomial: " + currentRecord.binomial}</p>
+    <p>{"Edible: " + currentRecord.edible}</p>
+    <p>{"Poisonous: " + currentRecord.poisonous}</p>
+    <p>{"Availability: " + currentRecord.availability}</p></>)
+
+    console.log(mushroomInfo);
+    this.setState(
+      {
+        show: true,
+        modalTitle: currentRecord.name,
+        modalBody: mushroomInfo
+      });
+
   }
 
   // This method will get the data from the database.
@@ -68,6 +97,7 @@ export default class RecordList extends Component {
           return (
             <Record
               record={currentrecord}
+              onClick={() => this.handleShow(currentrecord)}
               key={currentrecord._id}
             />
           );
@@ -77,6 +107,7 @@ export default class RecordList extends Component {
           return (
             <Record
               record={currentrecord}
+              onClick={() => this.handleShow(currentrecord)}
               key={currentrecord._id}
             />
           );
@@ -85,6 +116,7 @@ export default class RecordList extends Component {
         return (
           <Record
             record={currentrecord}
+            onClick={() => this.handleShow(currentrecord)}
             key={currentrecord._id}
           />
         );
@@ -95,20 +127,19 @@ export default class RecordList extends Component {
   render() {
     return (
       <div className='mb-3 text-center'>
-        <Modal.Dialog>
+        <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal title</Modal.Title>
+            <Modal.Title>{this.state.modalTitle}</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
-            <p>Modal body text goes here.</p>
+            {this.state.modalBody}
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary">Close</Button>
-            <Button variant="primary">Save changes</Button>
+            <Button variant="secondary" onClick={this.handleClose} >Close</Button>
           </Modal.Footer>
-        </Modal.Dialog>
+        </Modal>
         {this.filterStatus()}
         {this.recordList()}
       </div>
