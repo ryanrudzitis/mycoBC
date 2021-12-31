@@ -39,7 +39,10 @@ export default class RecordList extends Component {
     axios
       .get("http://localhost:5000/record/")
       .then((response) => {
-        this.setState({ records: response.data });
+        this.setState(
+          { 
+            records: response.data 
+          });
         // console.log(response.data);
       })
       .catch(function (error) {
