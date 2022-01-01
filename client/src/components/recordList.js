@@ -106,40 +106,22 @@ export default class RecordList extends Component {
   // pass filter function into props! maybe
   recordList() {
 
-    //if filter is edible
-
-
-    if (this.props.filterBy == "Edible") {
-
-    }
-
-    //if filter is poisonous
     return this.state.records.map((currentrecord) => {
       let filterQuery = false;
+
       if (this.props.filterBy === "Edible") {
         filterQuery = currentrecord.edible.includes("Yes");
-        if (currentrecord.edible.includes("Yes")) {
-          return (
-            <MushroomCard
-              record={currentrecord}
-              onClick={() => this.handleShow(currentrecord)}
-              key={currentrecord._id}
-            />
-          );
-        }
       } else if (this.props.filterBy === "Poisonous") {
-        if (currentrecord.poisonous.includes("Yes")) {
-          filterQuery = currentrecord.edible.includes("Yes");
-          return (
-            <MushroomCard
-              record={currentrecord}
-              onClick={() => this.handleShow(currentrecord)}
-              key={currentrecord._id}
-            />
-          );
-        }
+        filterQuery = currentrecord.poisonous.includes("Yes");
+      } else if(this.props.filterBy != "none") { // filter by month
+        console.log("filter by month!");
+        console.log(this.props.filterBy);
+        filterQuery = currentrecord.availability.includes(this.props.filterBy);
       } else {
         filterQuery = true;
+      }
+
+      if (filterQuery) {
         return (
           <MushroomCard
             record={currentrecord}
