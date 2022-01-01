@@ -99,8 +99,16 @@ export default class RecordList extends Component {
     }
   }
 
+  //filterfunction
+  //filter(filterBY)
+
+
   // pass filter function into props! maybe
   recordList() {
+
+    //if filter is edible
+
+    //if filter is poisonous
     return this.state.records.map((currentrecord) => {
       if (this.props.filterBy === "edible") {
         if (currentrecord.edible.includes("Yes")) {
