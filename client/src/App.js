@@ -31,8 +31,8 @@ export default function App() {
         </Navbar.Brand>
         <div>
           <NavDropdown title="Filter" id="basic-nav-dropdown" menuVariant="dark">
-            <NavDropdown.Item onClick={() => toggleFilter("edible")}>Edible</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => toggleFilter("poisonous")}>Poisonous</NavDropdown.Item>
+            <NavDropdown.Item onClick={() => toggleFilter("Edible")}>Edible</NavDropdown.Item>
+            <NavDropdown.Item onClick={() => toggleFilter("Poisonous")}>Poisonous</NavDropdown.Item>
             <Dropdown.Divider />
             <NavDropdown.Item onClick={() => toggleFilter("January")}>January</NavDropdown.Item>
             <NavDropdown.Item onClick={() => toggleFilter("February")}>February</NavDropdown.Item>

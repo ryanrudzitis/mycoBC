@@ -108,9 +108,16 @@ export default class RecordList extends Component {
 
     //if filter is edible
 
+
+    if (this.props.filterBy == "Edible") {
+
+    }
+
     //if filter is poisonous
     return this.state.records.map((currentrecord) => {
-      if (this.props.filterBy === "edible") {
+      let filterQuery = false;
+      if (this.props.filterBy === "Edible") {
+        filterQuery = currentrecord.edible.includes("Yes");
         if (currentrecord.edible.includes("Yes")) {
           return (
             <MushroomCard
@@ -120,8 +127,9 @@ export default class RecordList extends Component {
             />
           );
         }
-      } else if (this.props.filterBy === "poisonous") {
+      } else if (this.props.filterBy === "Poisonous") {
         if (currentrecord.poisonous.includes("Yes")) {
+          filterQuery = currentrecord.edible.includes("Yes");
           return (
             <MushroomCard
               record={currentrecord}
@@ -131,6 +139,7 @@ export default class RecordList extends Component {
           );
         }
       } else {
+        filterQuery = true;
         return (
           <MushroomCard
             record={currentrecord}
