@@ -5,7 +5,7 @@ import { Navbar, NavDropdown, Dropdown, Container } from 'react-bootstrap';
 import RecordList from "./components/recordList";
 
 export default function App() {
-  // used to track if filtering should be active
+  // used to track when filtering should be active
   const [filter, setFilter] = useState("none");
 
   function toggleFilter(filterBy) {
@@ -29,25 +29,23 @@ export default function App() {
           />{'     '}
           mycoBC
         </Navbar.Brand>
-        <div>
-          <NavDropdown title="Filter" id="basic-nav-dropdown" menuVariant="dark">
-            <NavDropdown.Item onClick={() => toggleFilter("Edible")}>Edible</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => toggleFilter("Poisonous")}>Poisonous</NavDropdown.Item>
-            <Dropdown.Divider />
-            <NavDropdown.Item onClick={() => toggleFilter("January")}>January</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => toggleFilter("February")}>February</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => toggleFilter("March")}>March</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => toggleFilter("April")}>April</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => toggleFilter("May")}>May</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => toggleFilter("June")}>June</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => toggleFilter("July")}>July</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => toggleFilter("August")}>August</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => toggleFilter("September")}>September</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => toggleFilter("October")}>October</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => toggleFilter("November")}>November</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => toggleFilter("December")}>December</NavDropdown.Item>
-          </NavDropdown>
-        </div>
+        <NavDropdown title="Filter" id="basic-nav-dropdown" menuVariant="dark">
+          <NavDropdown.Item onClick={() => toggleFilter("Edible")}>Edible</NavDropdown.Item>
+          <NavDropdown.Item onClick={() => toggleFilter("Poisonous")}>Poisonous</NavDropdown.Item>
+          <Dropdown.Divider />
+          <NavDropdown.Item onClick={() => toggleFilter("January")}>January</NavDropdown.Item>
+          <NavDropdown.Item onClick={() => toggleFilter("February")}>February</NavDropdown.Item>
+          <NavDropdown.Item onClick={() => toggleFilter("March")}>March</NavDropdown.Item>
+          <NavDropdown.Item onClick={() => toggleFilter("April")}>April</NavDropdown.Item>
+          <NavDropdown.Item onClick={() => toggleFilter("May")}>May</NavDropdown.Item>
+          <NavDropdown.Item onClick={() => toggleFilter("June")}>June</NavDropdown.Item>
+          <NavDropdown.Item onClick={() => toggleFilter("July")}>July</NavDropdown.Item>
+          <NavDropdown.Item onClick={() => toggleFilter("August")}>August</NavDropdown.Item>
+          <NavDropdown.Item onClick={() => toggleFilter("September")}>September</NavDropdown.Item>
+          <NavDropdown.Item onClick={() => toggleFilter("October")}>October</NavDropdown.Item>
+          <NavDropdown.Item onClick={() => toggleFilter("November")}>November</NavDropdown.Item>
+          <NavDropdown.Item onClick={() => toggleFilter("December")}>December</NavDropdown.Item>
+        </NavDropdown>
       </Container>
     </Navbar>
   );

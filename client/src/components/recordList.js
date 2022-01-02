@@ -3,14 +3,14 @@ import { Card, Modal, Button } from 'react-bootstrap';
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.css";
 
-const myStyle = {
+const cardStyle = {
   padding: 2,
   margin: '0 auto',
   width: '18rem'
 };
 
 const MushroomCard = (props) => (
-  <Card style={myStyle} className='mb-2 text-center'>
+  <Card style={cardStyle} className='mb-2 text-center'>
     <Card.Img variant="top" src={props.record.img} />
     <Card.Body>
       <Card.Title>{props.record.name}</Card.Title>
@@ -55,7 +55,6 @@ export default class RecordList extends Component {
         modalTitle: currentRecord.name,
         modalBody: mushroomInfo
       });
-
   }
 
   // This method will get the data from the database and store it in state
@@ -73,6 +72,7 @@ export default class RecordList extends Component {
       });
   }
 
+  // popup displaying mushroom info when user clicks "learn more"
   mushroomModal = (props) => (
     <Modal show={this.state.show} onHide={this.handleClose} size='sm'>
       <Modal.Header closeButton>
@@ -87,6 +87,7 @@ export default class RecordList extends Component {
     </Modal>
   );
 
+  // render div notifying user of current filter
   filterStatus() {
     if (this.props.filterBy != "none") {
       return (
@@ -99,28 +100,24 @@ export default class RecordList extends Component {
     }
   }
 
-  //filterfunction
-  //filter(filterBY)
-
-
-  // pass filter function into props! maybe
   recordList() {
-
     return this.state.records.map((currentrecord) => {
       let filterQuery = false;
 
       if (this.props.filterBy === "Edible") {
         filterQuery = currentrecord.edible.includes("Yes");
+
       } else if (this.props.filterBy === "Poisonous") {
         filterQuery = currentrecord.poisonous.includes("Yes");
+
       } else if(this.props.filterBy != "none") { // filter by month
-        console.log("filter by month!");
-        console.log(this.props.filterBy);
         filterQuery = currentrecord.availability.includes(this.props.filterBy);
-      } else {
+
+      } else { // no filter
         filterQuery = true;
       }
 
+      // if current record from db passes filter
       if (filterQuery) {
         return (
           <MushroomCard
@@ -135,7 +132,7 @@ export default class RecordList extends Component {
 
   render() {
     return (
-      <div className='mb-3 text-center'>
+      <div className='mb-3 text-center'  style={{ backgroundColor: "rgb(252, 68, 68)" }}>
         {this.mushroomModal()}
         {this.filterStatus()}
         {this.recordList()}
