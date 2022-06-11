@@ -47,9 +47,12 @@ export default function App() {
   );
 
   return (
-    <div style={{ backgroundColor: "rgb(252, 68, 68)" }}>
-      <Nav />
+
+  <div class="outer-container" style={{ backgroundColor: "rgb(252, 68, 68)" }}>
+    <Nav />
+    <div>
       <RecordList filterBy={filter} />
     </div>
+  </div>
   );
 };

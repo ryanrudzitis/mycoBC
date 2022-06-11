@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Card, Modal, Button } from 'react-bootstrap';
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.css";
+import "../styles.css";
 
 const cardStyle = {
   padding: 2,
@@ -147,7 +148,7 @@ export default class RecordList extends Component {
 
   render() {
     return (
-      <div className='mb-3 text-center'  style={{ backgroundColor: "rgb(252, 68, 68)" }}>
+      <div className='card-container mb-3 text-center'  style={{ backgroundColor: "rgb(252, 68, 68)" }}>
         {this.mushroomModal()}
         {this.filterStatus()}
         {this.recordList()}
