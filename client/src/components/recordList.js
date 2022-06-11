@@ -60,7 +60,7 @@ export default class RecordList extends Component {
   // This method will get the data from the database and store it in state
   componentDidMount() {
     axios
-      .get("http://localhost:5000/record/")
+      .get("http://localhost:3003/record/")
       .then((response) => {
         this.setState(
           {
@@ -70,6 +70,21 @@ export default class RecordList extends Component {
       .catch(function (error) {
         console.log(error);
       });
+
+        // post to database with axios
+        axios
+        .get("http://localhost:3003/postRecord/")
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+
+
+        
+    
   }
 
   // popup displaying mushroom info when user clicks "learn more"
@@ -87,7 +102,7 @@ export default class RecordList extends Component {
     </Modal>
   );
 
-  // render div notifying user of current filter
+  // render div that notifies user of current filter
   filterStatus() {
     if (this.props.filterBy != "none") {
       return (

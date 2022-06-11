@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Navbar, NavDropdown, Dropdown, Container } from 'react-bootstrap';
 
-// We import all the components we need in our app
+
+// import all the components we need in our app
 import RecordList from "./components/recordList";
 
+let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 export default function App() {
   // used to track when filtering should be active
   const [filter, setFilter] = useState("none");
@@ -33,18 +35,12 @@ export default function App() {
           <NavDropdown.Item onClick={() => toggleFilter("Edible")}>Edible</NavDropdown.Item>
           <NavDropdown.Item onClick={() => toggleFilter("Poisonous")}>Poisonous</NavDropdown.Item>
           <Dropdown.Divider />
-          <NavDropdown.Item onClick={() => toggleFilter("January")}>January</NavDropdown.Item>
-          <NavDropdown.Item onClick={() => toggleFilter("February")}>February</NavDropdown.Item>
-          <NavDropdown.Item onClick={() => toggleFilter("March")}>March</NavDropdown.Item>
-          <NavDropdown.Item onClick={() => toggleFilter("April")}>April</NavDropdown.Item>
-          <NavDropdown.Item onClick={() => toggleFilter("May")}>May</NavDropdown.Item>
-          <NavDropdown.Item onClick={() => toggleFilter("June")}>June</NavDropdown.Item>
-          <NavDropdown.Item onClick={() => toggleFilter("July")}>July</NavDropdown.Item>
-          <NavDropdown.Item onClick={() => toggleFilter("August")}>August</NavDropdown.Item>
-          <NavDropdown.Item onClick={() => toggleFilter("September")}>September</NavDropdown.Item>
-          <NavDropdown.Item onClick={() => toggleFilter("October")}>October</NavDropdown.Item>
-          <NavDropdown.Item onClick={() => toggleFilter("November")}>November</NavDropdown.Item>
-          <NavDropdown.Item onClick={() => toggleFilter("December")}>December</NavDropdown.Item>
+          {/* iterate over array */}
+          {months.map((month, index) => (
+            <NavDropdown.Item key={index} onClick={() => toggleFilter(month)}>
+              {month}
+            </NavDropdown.Item>
+          ))}
         </NavDropdown>
       </Container>
     </Navbar>
